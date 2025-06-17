@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RestarauntMenu.Application.UseCases.MenuServices.Queries
+﻿namespace RestarauntMenu.Application.UseCases.MenuServices.Queries
 {
     internal class GetAllMenuesQuery
     {

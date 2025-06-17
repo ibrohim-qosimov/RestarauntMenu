@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using RestarauntMenu.Application.ViewModels;
 
 namespace RestarauntMenu.Application.UseCases.RestarauntSerivices.Queries
 {
-    internal class GetRestarauntByIdQuery
+    public class GetRestarauntByIdQuery : IRequest<RestarauntViewModel>
     {
+        public long Id { get; set; }
     }
 }
