@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using RestarauntMenu.Application.ViewModels;
 
 namespace RestarauntMenu.Application.UseCases.RestarauntSerivices.Commands
 {
-    internal class DeleteRestarauntCommand
+    public class DeleteRestarauntCommand : IRequest<ResponseModel>
     {
+        public long Id { get; set; }
     }
 }
