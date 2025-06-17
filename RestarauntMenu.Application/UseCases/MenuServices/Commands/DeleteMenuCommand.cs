@@ -1,6 +1,10 @@
-﻿namespace RestarauntMenu.Application.UseCases.MenuServices.Commands
+﻿using MediatR;
+using RestarauntMenu.Application.ViewModels;
+
+namespace RestarauntMenu.Application.UseCases.MenuServices.Commands
 {
-    internal class DeleteMenuCommand
+    public class DeleteMenuCommand : IRequest<ResponseModel>
     {
+        public long Id { get; set; }
     }
 }
