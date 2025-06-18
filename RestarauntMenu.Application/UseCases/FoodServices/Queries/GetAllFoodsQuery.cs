@@ -1,6 +1,9 @@
-﻿namespace RestarauntMenu.Application.UseCases.FoodServices.Queries
+﻿using MediatR;
+using RestarauntMenu.Application.ViewModels;
+
+namespace RestarauntMenu.Application.UseCases.FoodServices.Queries
 {
-    internal class GetAllFoodsQuery
+    public class GetAllFoodsQuery : IRequest<IEnumerable<FoodViewModel>>
     {
     }
 }
