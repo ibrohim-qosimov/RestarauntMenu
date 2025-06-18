@@ -1,6 +1,9 @@
-﻿namespace RestarauntMenu.Application.UseCases.MenuServices.Queries
+﻿using MediatR;
+using RestarauntMenu.Application.ViewModels;
+
+namespace RestarauntMenu.Application.UseCases.MenuServices.Queries
 {
-    internal class GetAllMenuesQuery
+    public class GetAllMenuesQuery : IRequest<IEnumerable<MenuViewModel>>
     {
     }
 }
