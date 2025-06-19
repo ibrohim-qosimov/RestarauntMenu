@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using RestarauntMenu.Application.ViewModels;
-using RestarauntMenu.Domain.Entities;
 
 namespace RestarauntMenu.Application.UseCases.MenuServices.Commands
 {

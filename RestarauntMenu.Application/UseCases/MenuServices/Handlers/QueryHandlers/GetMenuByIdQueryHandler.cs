@@ -2,9 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using RestarauntMenu.Application.Abstractions;
 using RestarauntMenu.Application.UseCases.MenuServices.Queries;
-using RestarauntMenu.Application.UseCases.RestarauntSerivices.Queries;
 using RestarauntMenu.Application.ViewModels;
-using RestarauntMenu.Domain.Entities;
 using RestarauntMenu.Domain.Exceptions;
 
 namespace RestarauntMenu.Application.UseCases.MenuServices.Handlers.QueryHandlers
@@ -39,7 +37,7 @@ namespace RestarauntMenu.Application.UseCases.MenuServices.Handlers.QueryHandler
                     WorkTime = r.Restaraunt.WorkTime,
                     LogoPath = r.Restaraunt.LogoPath
                 },
-                Sections = r.Sections.Select(c => new MenuSection
+                Sections = r.Sections.Select(c => new MenuSectionViewModel
                 {
                     Id = c.Id,
                     Name = c.Name,

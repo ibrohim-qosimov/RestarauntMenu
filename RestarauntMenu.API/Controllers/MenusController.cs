@@ -1,10 +1,7 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RestarauntMenu.Application.UseCases.MenuServices.Commands;
 using RestarauntMenu.Application.UseCases.MenuServices.Queries;
-using RestarauntMenu.Application.UseCases.RestarauntSerivices.Commands;
-using RestarauntMenu.Application.UseCases.RestarauntSerivices.Queries;
 
 namespace RestarauntMenu.API.Controllers
 {
