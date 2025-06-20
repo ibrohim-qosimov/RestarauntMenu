@@ -57,5 +57,18 @@ namespace RestarauntMenu.API.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet("byMenuId/{menuId}")]
+        public async Task<IActionResult> GetMenuSectionsByMenuId(long menuId)
+        {
+            var query = new GetMenuSectionsByMenuIdQuery()
+            {
+                MenuId = menuId
+            };
+
+            var response = await _mediator.Send(query);
+
+            return Ok(response);
+        }
     }
 }

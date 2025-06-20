@@ -20,15 +20,7 @@ namespace RestarauntMenu.Application.UseCases.MenuServices.Handlers.QueryHandler
             {
                 Id = r.Id,
                 Name = r.Name,
-                RestarauntId = r.RestarauntId,
-                Restaraunt = new RestarauntViewModel() { Id = r.Restaraunt.Id, Name = r.Restaraunt.Name, Address = r.Restaraunt.Address, WorkTime = r.Restaraunt.WorkTime, LogoPath = r.Restaraunt.LogoPath },
-                Sections = r.Sections.Select(c => new MenuSectionViewModel
-                {
-                    Id = c.Id,
-                    Name = c.Name,
-                    PhotoPath = c.PhotoPath
-                }).ToList()
-
+                RestarauntId = r.RestarauntId
             });
             return response;
         }
