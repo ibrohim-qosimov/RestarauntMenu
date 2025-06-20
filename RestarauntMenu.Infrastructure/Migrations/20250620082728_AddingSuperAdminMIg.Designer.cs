@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using RestarauntMenu.Infrastructure.Persistance;
@@ -11,9 +12,11 @@ using RestarauntMenu.Infrastructure.Persistance;
 namespace RestarauntMenu.Infrastructure.Migrations
 {
     [DbContext(typeof(RestarauntMenuDbContext))]
-    partial class RestarauntMenuDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250620082728_AddingSuperAdminMIg")]
+    partial class AddingSuperAdminMIg
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
