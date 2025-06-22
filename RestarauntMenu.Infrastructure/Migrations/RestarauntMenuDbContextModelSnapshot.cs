@@ -119,6 +119,9 @@ namespace RestarauntMenu.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<long>("AdminId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("LogoPath")
                         .IsRequired()
                         .HasColumnType("text");
@@ -133,14 +136,19 @@ namespace RestarauntMenu.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AdminId")
+                        .IsUnique();
+
                     b.ToTable("Restaraunts");
                 });
 
             modelBuilder.Entity("RestarauntMenu.Domain.Entities.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -167,10 +175,10 @@ namespace RestarauntMenu.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("11111111-1111-1111-1111-111111111111"),
-                            CreatedAt = new DateTime(2025, 6, 20, 8, 27, 25, 264, DateTimeKind.Utc).AddTicks(603),
+                            Id = 1L,
+                            CreatedAt = new DateTime(2025, 6, 22, 6, 37, 27, 693, DateTimeKind.Utc).AddTicks(2067),
                             Name = "Default Super Admin",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHRJqKLxwTpFQpKo4VCcDjaKW28kIt87ubcesAqpRhKTLAqPkj6RnC12kDDINUEhWw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMHpoPU8rWQC0YuXCtRsZ4ZwWfPfoMEZAPuxZnRA7VF41todQWeADvi5q15+d8/lKg==",
                             PhoneNumber = "+998774194249",
                             Role = 2
                         });
@@ -209,6 +217,17 @@ namespace RestarauntMenu.Infrastructure.Migrations
                     b.Navigation("Menu");
                 });
 
+            modelBuilder.Entity("RestarauntMenu.Domain.Entities.Restaraunt", b =>
+                {
+                    b.HasOne("RestarauntMenu.Domain.Entities.User", "Admin")
+                        .WithOne("Restaraunt")
+                        .HasForeignKey("RestarauntMenu.Domain.Entities.Restaraunt", "AdminId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Admin");
+                });
+
             modelBuilder.Entity("RestarauntMenu.Domain.Entities.Menu", b =>
                 {
                     b.Navigation("Sections");
@@ -217,6 +236,11 @@ namespace RestarauntMenu.Infrastructure.Migrations
             modelBuilder.Entity("RestarauntMenu.Domain.Entities.MenuSection", b =>
                 {
                     b.Navigation("Foods");
+                });
+
+            modelBuilder.Entity("RestarauntMenu.Domain.Entities.User", b =>
+                {
+                    b.Navigation("Restaraunt");
                 });
 #pragma warning restore 612, 618
         }

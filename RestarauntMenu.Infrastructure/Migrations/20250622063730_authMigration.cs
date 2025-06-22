@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
@@ -6,11 +7,28 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace RestarauntMenu.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class firstMigration : Migration
+    public partial class authMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: false),
+                    Role = table.Column<int>(type: "integer", nullable: false),
+                    PasswordHash = table.Column<string>(type: "text", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Restaraunts",
                 columns: table => new
@@ -20,11 +38,18 @@ namespace RestarauntMenu.Infrastructure.Migrations
                     Name = table.Column<string>(type: "text", nullable: false),
                     Address = table.Column<string>(type: "text", nullable: false),
                     WorkTime = table.Column<string>(type: "text", nullable: false),
+                    AdminId = table.Column<long>(type: "bigint", nullable: false),
                     LogoPath = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Restaraunts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Restaraunts_Users_AdminId",
+                        column: x => x.AdminId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -92,6 +117,11 @@ namespace RestarauntMenu.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "CreatedAt", "Name", "PasswordHash", "PhoneNumber", "Role" },
+                values: new object[] { 1L, new DateTime(2025, 6, 22, 6, 37, 27, 693, DateTimeKind.Utc).AddTicks(2067), "Default Super Admin", "AQAAAAIAAYagAAAAEMHpoPU8rWQC0YuXCtRsZ4ZwWfPfoMEZAPuxZnRA7VF41todQWeADvi5q15+d8/lKg==", "+998774194249", 2 });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Foods_MenuSectionId",
                 table: "Foods",
@@ -106,6 +136,12 @@ namespace RestarauntMenu.Infrastructure.Migrations
                 name: "IX_MenuSections_MenuId",
                 table: "MenuSections",
                 column: "MenuId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Restaraunts_AdminId",
+                table: "Restaraunts",
+                column: "AdminId",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -122,6 +158,9 @@ namespace RestarauntMenu.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Restaraunts");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }
