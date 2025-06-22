@@ -62,7 +62,7 @@ namespace RestarauntMenu.API.Controllers
             {
                 Name = dto.Name,
                 Password = dto.Password,
-                PhoneNumber = dto.PhoneNumber
+                PhoneNumber = dto.PhoneNumber,
             };
 
             var result = await _mediator.Send(command);

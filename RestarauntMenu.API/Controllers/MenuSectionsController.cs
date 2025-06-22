@@ -1,7 +1,10 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RestarauntMenu.API.Filters;
 using RestarauntMenu.Application.UseCases.MenuSectionServices.Commands;
 using RestarauntMenu.Application.UseCases.MenuSectionServices.Queries;
+using RestarauntMenu.Domain.DTOs;
 
 namespace RestarauntMenu.API.Controllers
 {
@@ -17,6 +20,7 @@ namespace RestarauntMenu.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "SuperAdmin,Admin")]
         public async Task<IActionResult> CreateMenuSection([FromForm] CreateMenuSectionCommand command)
         {
             var response = await _mediator.Send(command);
@@ -24,6 +28,8 @@ namespace RestarauntMenu.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "SuperAdmin,Admin")]
+        [MenuSectionAccess]
         public async Task<IActionResult> DeleteMenuSection(long id)
         {
             var command = new DeleteMenuSectionCommand() { Id = id };
@@ -31,9 +37,19 @@ namespace RestarauntMenu.API.Controllers
             return Ok(result);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateMenuSection([FromForm] UpdateMenuSectionCommand command)
+        [HttpPut("{id}")]
+        [Authorize(Roles = "SuperAdmin,Admin")]
+        [MenuSectionAccess]
+        public async Task<IActionResult> UpdateMenuSection(long id, [FromForm] UpdateMenuSectionDTO dto)
         {
+            var command = new UpdateMenuSectionCommand()
+            {
+                Id = id,
+                Name = dto.Name,
+                MenuId = dto.MenuId,
+                PhotoPath = dto.Photo
+            };
+
             var response = await _mediator.Send(command);
             return Ok(response);
         }

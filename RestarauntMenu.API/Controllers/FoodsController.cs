@@ -1,7 +1,10 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RestarauntMenu.Application.UseCases.FoodServices.Commands;
 using RestarauntMenu.Application.UseCases.FoodServices.Queries;
+using RestarauntMenu.API.Filters;
+using RestarauntMenu.Domain.DTOs;
 
 namespace RestarauntMenu.API.Controllers
 {
@@ -17,6 +20,8 @@ namespace RestarauntMenu.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "SuperAdmin,Admin")]
+        //[FoodAccess]
         public async Task<IActionResult> CreateFood([FromForm] CreateFoodCommand command)
         {
             var response = await _mediator.Send(command);
@@ -24,6 +29,8 @@ namespace RestarauntMenu.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "SuperAdmin,Admin")]
+        [FoodAccess]
         public async Task<IActionResult> DeleteFood(long id)
         {
             var command = new DeleteFoodCommand { Id = id };
@@ -35,9 +42,22 @@ namespace RestarauntMenu.API.Controllers
             return NotFound(response.Message);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateFood([FromForm] UpdateFoodCommand command)
+        [HttpPut("{id}")]
+        [Authorize(Roles = "SuperAdmin,Admin")]
+        [FoodAccess]
+        public async Task<IActionResult> UpdateFood(long id, [FromForm] UpdateFoodDTO dto)
         {
+            var command = new UpdateFoodCommand()
+            {
+                Id = id,
+                Name = dto.Name,
+                Allergens = dto.Allergens,
+                Ingredients = dto.Ingredients,
+                MenuSectionId = dto.MenuSectionId,
+                Photo = dto.Photo,
+                Price = dto.Price
+            };
+
             var response = await _mediator.Send(command);
             if (response.IsSuccess)
             {
