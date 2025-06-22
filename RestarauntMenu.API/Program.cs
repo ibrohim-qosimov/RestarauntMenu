@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using RestarauntMenu.API.Filters;
 using RestarauntMenu.Application;
 using RestarauntMenu.Infrastructure;
 using System.Text;
@@ -19,6 +20,11 @@ namespace RestarauntMenu.API
             builder.Services.AddRMADependencyInjection();
             builder.Services.AddRMIDependencyInjection(builder.Configuration);
 
+
+            builder.Services.AddScoped<FoodAccessFilter>();
+            builder.Services.AddScoped<MenuSectionAccessFilter>();
+            builder.Services.AddScoped<RestaurantAccessFilter>();
+            builder.Services.AddScoped<MenuAccessFilter>();
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -84,6 +90,7 @@ namespace RestarauntMenu.API
             app.UseHttpsRedirection();
 
             app.UseAuthentication();
+
             app.UseAuthorization();
 
 

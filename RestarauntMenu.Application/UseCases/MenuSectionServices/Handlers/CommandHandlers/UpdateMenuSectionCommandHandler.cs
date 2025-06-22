@@ -68,7 +68,8 @@ namespace RestarauntMenu.Application.UseCases.MenuSectionServices.Handlers.Comma
                     if (!string.IsNullOrEmpty(request.Name))
                         menuSection.Name = request.Name;
 
-                    request.MenuId = request.MenuId;
+                    if (request.MenuId != null)
+                        menuSection.MenuId = (long)request.MenuId;
 
                     await _context.SaveChangesAsync(cancellationToken);
 

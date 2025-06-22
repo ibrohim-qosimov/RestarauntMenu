@@ -28,7 +28,7 @@ namespace RestarauntMenu.Infrastructure.Persistance
             var passwordHasher = new PasswordHasher<User>();
             var superAdmin = new User
             {
-                Id = Guid.Parse("11111111-1111-1111-1111-111111111111"),
+                Id = 1,
                 Name = "Default Super Admin",
                 PhoneNumber = "+998774194249",
                 Role = UserRole.SuperAdmin,

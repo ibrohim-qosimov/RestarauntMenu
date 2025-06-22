@@ -61,8 +61,6 @@ namespace RestarauntMenu.Application.UseCases.RestarauntSerivices.Handlers.Comma
                         {
                             return new ResponseModel(false, "There is an error in updating image!");
                         }
-
-
                     }
 
                     if (!string.IsNullOrEmpty(request.Name))
@@ -73,6 +71,9 @@ namespace RestarauntMenu.Application.UseCases.RestarauntSerivices.Handlers.Comma
 
                     if (!string.IsNullOrEmpty(request.WorkTime))
                         restaraunt.WorkTime = request.WorkTime;
+
+                    if (request.AdminId != null)
+                        restaraunt.AdminId = (long)request.AdminId;
 
                     await _context.SaveChangesAsync(cancellationToken);
 

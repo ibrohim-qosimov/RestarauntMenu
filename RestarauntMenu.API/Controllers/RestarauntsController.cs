@@ -1,7 +1,11 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RestarauntMenu.API.Filters;
 using RestarauntMenu.Application.UseCases.RestarauntSerivices.Commands;
 using RestarauntMenu.Application.UseCases.RestarauntSerivices.Queries;
+using RestarauntMenu.Domain.DTOs;
+using System.Security.Claims;
 
 namespace RestarauntMenu.API.Controllers
 {
@@ -17,6 +21,7 @@ namespace RestarauntMenu.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> CreateRestaraunt([FromForm] CreateRestarauntCommand command)
         {
             var response = await _mediator.Send(command);
@@ -24,6 +29,7 @@ namespace RestarauntMenu.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> DeleteRestaraunt(long id)
         {
             var command = new DeleteRestarauntCommand { Id = id };
@@ -36,7 +42,8 @@ namespace RestarauntMenu.API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateRestaraunt([FromForm] UpdateRestarauntCommand command)
+        [Authorize(Roles = "SuperAdmin")]
+        public async Task<IActionResult> UpdateRestarauntAll([FromForm] UpdateRestarauntCommand command)
         {
             var response = await _mediator.Send(command);
             if (response.IsSuccess)
@@ -45,6 +52,25 @@ namespace RestarauntMenu.API.Controllers
             }
             return BadRequest(response.Message);
         }
+
+        [HttpPut("{id}")]
+        [Authorize(Roles = "SuperAdmin,Admin")]
+        [RestaurantAccess]
+        public async Task<IActionResult> UpdateRestarauntAdmin(long id, [FromForm] UpdateRestaurantDTO dto)
+        {
+            var command = new UpdateRestarauntCommand()
+            {
+                Id = id,
+                Name = dto.Name,
+                Address = dto.Address,
+                WorkTime = dto.WorkTime,
+                Logo = dto.Logo
+            };
+
+            var response = await _mediator.Send(command);
+            return response.IsSuccess ? Ok(response) : BadRequest(response.Message);
+        }
+
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetRestarauntById(long id)

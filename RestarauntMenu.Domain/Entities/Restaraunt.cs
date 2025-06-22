@@ -1,4 +1,7 @@
-﻿namespace RestarauntMenu.Domain.Entities
+﻿using RestarauntMenu.Domain.DTOs;
+using System.Net.Sockets;
+
+namespace RestarauntMenu.Domain.Entities
 {
     public class Restaraunt
     {
@@ -6,6 +9,14 @@
         public string Name { get; set; }
         public string Address { get; set; }
         public string WorkTime { get; set; }
+        
+
+        /// <summary>
+        /// Har bitta admin faqat bitta restaurant uchun javobgarrrr
+        /// </summary>
+        public long AdminId { get; set; }
+        public User Admin { get; set; }
+
 
         public string LogoPath { get; set; }
     }

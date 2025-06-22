@@ -11,6 +11,6 @@ namespace RestarauntMenu.Application.UseCases.MenuSectionServices.Commands
 
         public IFormFile? PhotoPath { get; set; }
 
-        public long MenuId { get; set; }
+        public long? MenuId { get; set; }
     }
 }

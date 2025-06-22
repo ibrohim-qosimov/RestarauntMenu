@@ -7,6 +7,6 @@ namespace RestarauntMenu.Application.UseCases.MenuServices.Commands
     {
         public long Id { get; set; }
         public string? Name { get; set; }
-        public long RestarauntId { get; set; }
+        public long? RestarauntId { get; set; }
     }
 }
