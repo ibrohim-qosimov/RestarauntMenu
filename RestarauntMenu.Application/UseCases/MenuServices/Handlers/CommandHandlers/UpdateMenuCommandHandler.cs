@@ -27,7 +27,7 @@ namespace RestarauntMenu.Application.UseCases.MenuServices.Handlers.CommandHandl
                         menu.Name = request.Name;
 
                     if (request.RestarauntId != null)
-                        menu.RestarauntId = request.RestarauntId;
+                        menu.RestarauntId = (long)request.RestarauntId;
 
                     await _context.SaveChangesAsync(cancellationToken);
 
