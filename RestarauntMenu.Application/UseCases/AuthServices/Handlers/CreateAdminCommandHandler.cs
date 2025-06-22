@@ -34,7 +34,7 @@ namespace RestarauntMenu.Application.UseCases.AuthServices.Handlers
                 Name = request.Name,
                 PhoneNumber = request.PhoneNumber,
                 Role = UserRole.Admin,
-                PasswordHash = _hasher.HashPassword(null!, request.Password)
+                PasswordHash = _hasher.HashPassword(null!, request.Password),
             };
 
             await _context.Users.AddAsync(admin, cancellationToken);
