@@ -10,11 +10,11 @@ namespace RestarauntMenu.Application.UseCases.FoodServices.Commands
 
         public string? Name { get; set; }
         public string? Ingredients { get; set; }
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
         public string? Allergens { get; set; }
 
         public IFormFile? Photo { get; set; }
 
-        public long MenuSectionId { get; set; }
+        public long? MenuSectionId { get; set; }
     }
 }

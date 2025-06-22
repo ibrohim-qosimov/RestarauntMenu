@@ -73,9 +73,11 @@ namespace RestarauntMenu.Application.UseCases.FoodServices.Handlers.CommandHandl
 
                     if (!string.IsNullOrEmpty(request.Allergens))
                         food.Allergens = request.Allergens;
+                    if (request.Price != null)
+                        food.Price = (decimal)request.Price;
 
-                    food.Price = request.Price;
-                    food.MenuSectionId = request.MenuSectionId;
+                    if (request.MenuSectionId != null)
+                        food.MenuSectionId = (long)request.MenuSectionId;
 
 
                     await _context.SaveChangesAsync(cancellationToken);
