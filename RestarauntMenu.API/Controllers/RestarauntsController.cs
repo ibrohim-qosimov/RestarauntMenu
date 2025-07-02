@@ -11,6 +11,7 @@ namespace RestarauntMenu.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "SuperAdmin,Admin,User")]
     public class RestarauntsController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -21,7 +22,6 @@ namespace RestarauntMenu.API.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> CreateRestaraunt([FromForm] CreateRestarauntCommand command)
         {
             var response = await _mediator.Send(command);
@@ -29,7 +29,6 @@ namespace RestarauntMenu.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> DeleteRestaraunt(long id)
         {
             var command = new DeleteRestarauntCommand { Id = id };
@@ -42,7 +41,6 @@ namespace RestarauntMenu.API.Controllers
         }
 
         [HttpPut]
-        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> UpdateRestarauntAll([FromForm] UpdateRestarauntCommand command)
         {
             var response = await _mediator.Send(command);
@@ -54,7 +52,6 @@ namespace RestarauntMenu.API.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "SuperAdmin,Admin")]
         [RestaurantAccess]
         public async Task<IActionResult> UpdateRestarauntAdmin(long id, [FromForm] UpdateRestaurantDTO dto)
         {

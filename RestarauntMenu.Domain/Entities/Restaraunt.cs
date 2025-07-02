@@ -14,8 +14,8 @@ namespace RestarauntMenu.Domain.Entities
         /// <summary>
         /// Har bitta admin faqat bitta restaurant uchun javobgarrrr
         /// </summary>
-        public long AdminId { get; set; }
-        public User Admin { get; set; }
+        public long UserId { get; set; }
+        public User User { get; set; }
 
 
         public string LogoPath { get; set; }

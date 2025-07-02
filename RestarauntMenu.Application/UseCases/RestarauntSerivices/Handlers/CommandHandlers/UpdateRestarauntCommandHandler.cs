@@ -73,7 +73,7 @@ namespace RestarauntMenu.Application.UseCases.RestarauntSerivices.Handlers.Comma
                         restaraunt.WorkTime = request.WorkTime;
 
                     if (request.AdminId != null)
-                        restaraunt.AdminId = (long)request.AdminId;
+                        restaraunt.UserId = (long)request.AdminId;
 
                     await _context.SaveChangesAsync(cancellationToken);
 

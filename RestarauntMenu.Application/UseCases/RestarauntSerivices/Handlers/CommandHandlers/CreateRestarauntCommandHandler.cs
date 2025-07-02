@@ -57,7 +57,7 @@ namespace RestarauntMenu.Application.UseCases.RestarauntSerivices.Handlers.Comma
                     Name = request.Name,
                     Address = request.Address,
                     WorkTime = request.WorkTime,
-                    AdminId = request.AdminId,
+                    UserId = request.AdminId,
                     LogoPath = "/RestarauntLogos/" + fileName
                 };
 

@@ -12,8 +12,8 @@ using RestarauntMenu.Infrastructure.Persistance;
 namespace RestarauntMenu.Infrastructure.Migrations
 {
     [DbContext(typeof(RestarauntMenuDbContext))]
-    [Migration("20250622063730_authMigration")]
-    partial class authMigration
+    [Migration("20250702033824_firstMigration")]
+    partial class firstMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -122,9 +122,6 @@ namespace RestarauntMenu.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<long>("AdminId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("LogoPath")
                         .IsRequired()
                         .HasColumnType("text");
@@ -133,13 +130,16 @@ namespace RestarauntMenu.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("WorkTime")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AdminId")
+                    b.HasIndex("UserId")
                         .IsUnique();
 
                     b.ToTable("Restaraunts");
@@ -179,9 +179,9 @@ namespace RestarauntMenu.Infrastructure.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedAt = new DateTime(2025, 6, 22, 6, 37, 27, 693, DateTimeKind.Utc).AddTicks(2067),
+                            CreatedAt = new DateTime(2025, 7, 2, 3, 38, 21, 299, DateTimeKind.Utc).AddTicks(4580),
                             Name = "Default Super Admin",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMHpoPU8rWQC0YuXCtRsZ4ZwWfPfoMEZAPuxZnRA7VF41todQWeADvi5q15+d8/lKg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBrayiTLxWkbWCAvnwZw/3AKz0NBIu1U8rzzPo4LWMGwFHZzZyVTiMmr1cnlQrSYLA==",
                             PhoneNumber = "+998774194249",
                             Role = 2
                         });
@@ -222,13 +222,13 @@ namespace RestarauntMenu.Infrastructure.Migrations
 
             modelBuilder.Entity("RestarauntMenu.Domain.Entities.Restaraunt", b =>
                 {
-                    b.HasOne("RestarauntMenu.Domain.Entities.User", "Admin")
+                    b.HasOne("RestarauntMenu.Domain.Entities.User", "User")
                         .WithOne("Restaraunt")
-                        .HasForeignKey("RestarauntMenu.Domain.Entities.Restaraunt", "AdminId")
+                        .HasForeignKey("RestarauntMenu.Domain.Entities.Restaraunt", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Admin");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("RestarauntMenu.Domain.Entities.Menu", b =>

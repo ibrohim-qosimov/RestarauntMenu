@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace RestarauntMenu.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class authMigration : Migration
+    public partial class firstMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -38,15 +38,15 @@ namespace RestarauntMenu.Infrastructure.Migrations
                     Name = table.Column<string>(type: "text", nullable: false),
                     Address = table.Column<string>(type: "text", nullable: false),
                     WorkTime = table.Column<string>(type: "text", nullable: false),
-                    AdminId = table.Column<long>(type: "bigint", nullable: false),
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
                     LogoPath = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Restaraunts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Restaraunts_Users_AdminId",
-                        column: x => x.AdminId,
+                        name: "FK_Restaraunts_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -120,7 +120,7 @@ namespace RestarauntMenu.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "CreatedAt", "Name", "PasswordHash", "PhoneNumber", "Role" },
-                values: new object[] { 1L, new DateTime(2025, 6, 22, 6, 37, 27, 693, DateTimeKind.Utc).AddTicks(2067), "Default Super Admin", "AQAAAAIAAYagAAAAEMHpoPU8rWQC0YuXCtRsZ4ZwWfPfoMEZAPuxZnRA7VF41todQWeADvi5q15+d8/lKg==", "+998774194249", 2 });
+                values: new object[] { 1L, new DateTime(2025, 7, 2, 3, 38, 21, 299, DateTimeKind.Utc).AddTicks(4580), "Default Super Admin", "AQAAAAIAAYagAAAAEBrayiTLxWkbWCAvnwZw/3AKz0NBIu1U8rzzPo4LWMGwFHZzZyVTiMmr1cnlQrSYLA==", "+998774194249", 2 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Foods_MenuSectionId",
@@ -138,9 +138,9 @@ namespace RestarauntMenu.Infrastructure.Migrations
                 column: "MenuId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Restaraunts_AdminId",
+                name: "IX_Restaraunts_UserId",
                 table: "Restaraunts",
-                column: "AdminId",
+                column: "UserId",
                 unique: true);
         }
 

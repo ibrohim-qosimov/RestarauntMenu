@@ -26,7 +26,7 @@ namespace RestarauntMenu.Application.UseCases.AuthServices.AccesssAuthorizationC
             .ThenInclude(m => m.Restaraunt)
             .FirstOrDefaultAsync(f => f.Id == foodId);
 
-            return food?.MenuSection?.Menu.Restaraunt?.AdminId == userId;
+            return food?.MenuSection?.Menu.Restaraunt?.UserId == userId;
         }
 
         public async Task<bool> HasAccessToMenuAsync(long menuId, long userId)
@@ -35,7 +35,7 @@ namespace RestarauntMenu.Application.UseCases.AuthServices.AccesssAuthorizationC
             .Include(m => m.Restaraunt)
             .FirstOrDefaultAsync(m => m.Id == menuId);
 
-            return menu?.Restaraunt?.AdminId == userId;
+            return menu?.Restaraunt?.UserId == userId;
         }
 
         public async Task<bool> HasAccessToMenuSectionAsync(long menuSectionId, long userId)
@@ -45,7 +45,7 @@ namespace RestarauntMenu.Application.UseCases.AuthServices.AccesssAuthorizationC
                 .ThenInclude(m=>m.Restaraunt)
                 .FirstOrDefaultAsync(ms=>ms.Id == menuSectionId);
 
-            return menuSection?.Menu?.Restaraunt?.AdminId == userId;
+            return menuSection?.Menu?.Restaraunt?.UserId == userId;
         }   
 
         public async Task<bool> HasAccessToRestaurantAsync(long resturantId, long userId)
@@ -53,7 +53,7 @@ namespace RestarauntMenu.Application.UseCases.AuthServices.AccesssAuthorizationC
             var restaurant = await _context.Restaraunts
                 .FirstOrDefaultAsync(r => r.Id == resturantId);
 
-            return restaurant?.AdminId == userId;
+            return restaurant?.UserId == userId;
         }
     }
 }

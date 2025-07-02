@@ -10,6 +10,7 @@ namespace RestarauntMenu.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "SuperAdmin,Admin,User")]
     public class MenuSectionsController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -20,7 +21,6 @@ namespace RestarauntMenu.API.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "SuperAdmin,Admin")]
         public async Task<IActionResult> CreateMenuSection([FromForm] CreateMenuSectionCommand command)
         {
             var response = await _mediator.Send(command);
@@ -28,7 +28,6 @@ namespace RestarauntMenu.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "SuperAdmin,Admin")]
         [MenuSectionAccess]
         public async Task<IActionResult> DeleteMenuSection(long id)
         {
@@ -38,7 +37,6 @@ namespace RestarauntMenu.API.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "SuperAdmin,Admin")]
         [MenuSectionAccess]
         public async Task<IActionResult> UpdateMenuSection(long id, [FromForm] UpdateMenuSectionDTO dto)
         {
