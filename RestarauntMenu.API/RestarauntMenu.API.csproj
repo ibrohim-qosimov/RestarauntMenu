@@ -20,8 +20,4 @@
     <ProjectReference Include="..\RestarauntMenu.Infrastructure\RestarauntMenu.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
-
 </Project>
