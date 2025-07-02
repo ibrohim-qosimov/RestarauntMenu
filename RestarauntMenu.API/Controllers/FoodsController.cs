@@ -21,7 +21,7 @@ namespace RestarauntMenu.API.Controllers
         }
 
         [HttpPost]
-        //[FoodAccess]
+        [FoodAccess]
         public async Task<IActionResult> CreateFood([FromForm] CreateFoodCommand command)
         {
             var response = await _mediator.Send(command);
