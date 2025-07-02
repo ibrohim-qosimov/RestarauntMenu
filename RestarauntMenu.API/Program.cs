@@ -1,5 +1,6 @@
-
+﻿
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using RestarauntMenu.API.Filters;
@@ -66,7 +67,12 @@ namespace RestarauntMenu.API
         }
     });
             });
-            builder.Services.AddControllers();
+            builder.Services.AddControllers(options =>
+            {
+                options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));
+            });
+            
+            
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -76,8 +82,16 @@ namespace RestarauntMenu.API
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwagger(c =>
+                {
+                    c.RouteTemplate = "controlPanel/{documentName}/swagger.json"; // Swagger JSON path
+                });
+
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/controlPanel/v1/swagger.json", "My Custom API v1");
+                    c.RoutePrefix = "controlPanel"; // Swagger UI bo'ladi: http://localhost:xxxx/test-gaga
+                });
             }
 
             app.UseStaticFiles();
