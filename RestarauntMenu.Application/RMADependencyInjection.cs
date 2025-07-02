@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using RestarauntMenu.Application.UseCases.AuthServices.AccesssAuthorizationCehckerService;
+using RestarauntMenu.Application.UseCases.QrCodeServices;
 using System.Reflection;
 
 namespace RestarauntMenu.Application
@@ -12,6 +13,7 @@ namespace RestarauntMenu.Application
 
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddScoped<IAccessAuthorizationChecker, AccessAuthorizationChecker>();
+            services.AddScoped<IQrCodeService, QrCodeService>();
             return services;
         }
     }
