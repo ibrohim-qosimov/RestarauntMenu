@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/RestarauntMenu.API/wwwroot/RestarauntLogos
+/RestarauntMenu.API/wwwroot/FoodPhotos
+/RestarauntMenu.API/wwwroot/MenuSectionPhotoPaths
