@@ -53,6 +53,7 @@ namespace RestarauntMenu.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetMenuSectionById(long id)
         {
             var query = new GetMenuSectionByIdQuery() { Id = id };
@@ -63,6 +64,7 @@ namespace RestarauntMenu.API.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetMenuSections()
         {
             var query = new GetAllMenuSectionQuery();
@@ -73,6 +75,7 @@ namespace RestarauntMenu.API.Controllers
         }
 
         [HttpGet("byMenuId/{menuId}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetMenuSectionsByMenuId(long menuId)
         {
             var query = new GetMenuSectionsByMenuIdQuery()

@@ -65,6 +65,7 @@ namespace RestarauntMenu.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetFoodById(long id)
         {
             var query = new GetFoodByIdQuery { Id = id };
@@ -77,6 +78,7 @@ namespace RestarauntMenu.API.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAllFoods()
         {
             var query = new GetAllFoodsQuery();
